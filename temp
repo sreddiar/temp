@@ -1,0 +1,24 @@
+WebElement table = driver.findElement(By.xpath("//table[@id='table_id']"));
+List<WebElement> headerRow = table.findElements(By.xpath("//tr/th"));
+List<String> header = new ArrayList<>();
+
+for (WebElement headerCell : headerRow) {
+    header.add(headerCell.getText());
+}
+
+List<WebElement> rows = table.findElements(By.xpath("//tr[not(th)]"));
+Map<String, List<String>> tableData = new HashMap<>();
+
+for (String headerCell : header) {
+    tableData.put(headerCell, new ArrayList<>());
+}
+
+for (WebElement row : rows) {
+    List<WebElement> cells = row.findElements(By.tagName("td"));
+    int i = 0;
+
+    for (WebElement cell : cells) {
+        tableData.get(header.get(i)).add(cell.getText());
+        i++;
+    }
+}
