@@ -1,0 +1,34 @@
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+public class ServiceNowSearchableDropdown {
+    public static void selectOptionFromSearchableDropdown(WebDriver driver, String dropdownId, String option) {
+        // Locate the dropdown element on the page
+        WebElement dropdown = driver.findElement(By.id(dropdownId));
+        
+        // Click on the dropdown to open it
+        dropdown.click();
+        
+        // Wait for the dropdown options to load
+        WebDriverWait wait = new WebDriverWait(driver, 10);
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("#" + dropdownId + " .select2-search__field")));
+        
+        // Locate the search field in the dropdown
+        WebElement searchField = driver.findElement(By.cssSelector("#" + dropdownId + " .select2-search__field"));
+        
+        // Enter the option to search for
+        searchField.sendKeys(option);
+        
+        // Wait for the search results to load
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("#select2-" + dropdownId + "-results li")));
+        
+        // Locate the option in the search results
+        WebElement searchedOption = driver.findElement(By.xpath("//li[text()='" + option + "']"));
+        
+        // Click on the option to select it
+        searchedOption.click();
+    }
+}
