@@ -1,0 +1,122 @@
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+public class SeleniumUtils {
+  // Function to wait for an element to be visible on the page
+  public static void waitForElementToBeVisible(WebDriver driver, By locator, int timeout) {
+    WebDriverWait wait = new WebDriverWait(driver, timeout);
+    wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
+  }
+
+  // Function to wait for an element to be clickable on the page
+  public static void waitForElementToBeClickable(WebDriver driver, By locator, int timeout) {
+    WebDriverWait wait = new WebDriverWait(driver, timeout);
+    wait.until(ExpectedConditions.elementToBeClickable(locator));
+  }
+
+  // Function to check if an element is displayed on the page
+  public static boolean isElementDisplayed(WebDriver driver, By locator) {
+    try {
+      return driver.findElement(locator).isDisplayed();
+    } catch (Exception e) {
+      return false;
+    }
+  }
+
+  // Function to get the text of an element
+  public static String getElementText(WebDriver driver, By locator) {
+    return driver.findElement(locator).getText();
+  }
+
+  // Function to click an element
+  public static void clickElement(WebDriver driver, By locator) {
+    driver.findElement(locator).click();
+  }
+
+  // Function to enter text into an input field
+  public static void enterText(WebDriver driver, By locator, String text) {
+    WebElement element = driver.findElement(locator);
+    element.clear();
+    element.sendKeys(text);
+  }
+
+  // Function to wait for a page to fully load
+  public static void waitForPageToLoad(WebDriver driver, int timeout) {
+    WebDriverWait wait = new WebDriverWait(driver, timeout);
+    wait.until(ExpectedConditions.jsReturnsValue("return document.readyState == 'complete'"));
+  }
+
+  // Function to get the value of an attribute of an element
+  public static String getAttributeValue(WebDriver driver, By locator, String attribute) {
+    return driver.findElement(locator).getAttribute(attribute);
+  }
+
+  // Function to select an option from a dropdown by visible text
+  public static void selectFromDropdown(WebDriver driver, By locator, String visibleText) {
+    WebElement dropdown = driver.findElement(locator);
+    org.openqa.selenium.support.ui.Select select = new org.openqa.selenium.support.ui.Select(dropdown);
+    select.selectByVisibleText(visibleText);
+  }
+
+  // Function to select an option from a dropdown by value
+public static void selectFromDropdownByValue(WebDriver driver, By locator, String value) {
+  WebElement dropdown = driver.findElement(locator);
+  Select select = new Select(dropdown);
+  select.selectByValue(value);
+}    
+    
+    // Function to check if an element is enabled
+  public static boolean isElementEnabled(WebDriver driver, By locator) {
+    return driver.findElement(locator).isEnabled();
+  }
+
+  // Function to check if an element is selected
+  public static boolean isElementSelected(WebDriver driver, By locator) {
+    return driver.findElement(locator).isSelected();
+  }
+
+  // Function to get the size of an element
+  public static org.openqa.selenium.Dimension getElementSize(WebDriver driver, By locator) {
+    return driver.findElement(locator).getSize();
+  }
+
+  // Function to get the location of an element
+  public static org.openqa.selenium.Point getElementLocation(WebDriver driver, By locator) {
+    return driver.findElement(locator).getLocation();
+  }
+
+  // Function to switch to a frame
+  public static void switchToFrame(WebDriver driver, By locator) {
+    driver.switchTo().frame(driver.findElement(locator));
+  }
+
+  // Function to switch back to the default content
+  public static void switchToDefaultContent(WebDriver driver) {
+    driver.switchTo().defaultContent();
+  }
+
+  // Function to hover over an element
+  public static void hoverOverElement(WebDriver driver, By locator) {
+    org.openqa.selenium.interactions.Actions action = new org.openqa.selenium.interactions.Actions(driver);
+    WebElement element = driver.findElement(locator);
+    action.moveToElement(element).build().perform();
+  }
+
+  // Function to perform a right click on an element
+  public static void rightClickElement(WebDriver driver, By locator) {
+    org.openqa.selenium.interactions.Actions action = new org.openqa.selenium.interactions.Actions(driver);
+    WebElement element = driver.findElement(locator);
+    action.contextClick(element).build().perform();
+  }
+
+  // Function to drag and drop an element
+  public static void dragAndDropElement(WebDriver driver, By sourceLocator, By targetLocator) {
+    org.openqa.selenium.interactions.Actions action = new org.openqa.selenium.interactions.Actions(driver);
+    WebElement sourceElement = driver.findElement(sourceLocator);
+    WebElement targetElement = driver.findElement(targetLocator);
+    action.dragAndDrop(sourceElement, targetElement).build().perform();
+  }
+}
