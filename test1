@@ -1,0 +1,19 @@
+public class CamelCase {
+    public static void main(String[] args) {
+        String input = "NOT OPPOSE";
+        
+        // Convert all characters to lowercase
+        String[] words = input.toLowerCase().split(" ");
+        
+        // Capitalize the first letter of each word except the first one
+        StringBuilder output = new StringBuilder(words[0]);
+        for (int i = 1; i < words.length; i++) {
+            String word = words[i];
+            output.append(word.substring(0, 1).toUpperCase());
+            output.append(word.substring(1));
+        }
+        
+        // Print the result
+        System.out.println(output.toString());
+    }
+}
